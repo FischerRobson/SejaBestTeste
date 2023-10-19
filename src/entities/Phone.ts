@@ -7,19 +7,22 @@ export class Phone {
   #cel: boolean
 
   setPhone(code: string, number: string, cel: boolean) {
-    this.#id = randomUUID()
-    this.#code = code
-    this.#number = number
-    this.#cel = cel
-    console.log('setPhone')
-    console.log(this)
+    this.#id = this.#id || randomUUID()
+    this.#code = code || this.#code
+    this.#number = number || this.#number
+    this.#cel = cel || this.#cel
   }
 
   getPhone() {
-    return `${this.#id}: ${this.#code} ${this.#number}`
+    return {
+      id: this.#id,
+      code: this.#code,
+      number: this.#number,
+      cel: this.isCel(),
+    }
   }
 
   isCel() {
-    return this.#cel
+    return this.#cel === true
   }
 }
