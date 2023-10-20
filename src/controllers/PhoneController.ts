@@ -2,10 +2,9 @@ import { Request, Response } from 'express'
 import * as z from 'zod'
 import { Phone } from '../entities/Phone'
 import { ZodError } from '../entities/ZodError'
-import { UUID } from 'crypto'
 import { phones } from '../db/phones'
 
-class PhoneController {
+export class PhoneController {
   createPhone = async (req: Request, res: Response) => {
     try {
       const bodyScheme = z.object({
@@ -34,11 +33,6 @@ class PhoneController {
     return res.status(200).send(data)
   }
 
-  getPhoneById(id: UUID) {
-    const phone = phones.find((e) => e.getPhone().id.includes(id))
-    return phone
-  }
-
   updatePhone = async (req: Request, res: Response) => {
     const { id } = req.params
 
@@ -51,7 +45,7 @@ class PhoneController {
     const { code, cel, number } = bodyScheme.parse(req.body)
 
     const indexOf = phones.findIndex((e) => e.getPhone().id.includes(id))
-
+    console.log('index' + indexOf)
     if (indexOf > -1) {
       phones[indexOf].setPhone(code, number, cel)
       return res.status(200).send(phones[indexOf].getPhone())
