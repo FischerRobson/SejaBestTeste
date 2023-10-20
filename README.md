@@ -13,7 +13,7 @@ payload:
 ```json
 ```
 
-resposta: 
+response: 
 
 ```json
 ```
@@ -25,7 +25,7 @@ payload:
 ```json
 ```
 
-resposta: 
+response: 
 
 ```json
 ```
@@ -37,7 +37,7 @@ payload:
 ```json
 ```
 
-resposta: 
+response: 
 
 ```json
 ```
@@ -49,7 +49,7 @@ payload:
 ```json
 ```
 
-resposta: 
+response: 
 
 ```json
 ```

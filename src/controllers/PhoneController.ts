@@ -29,6 +29,12 @@ export class PhoneController {
   }
 
   listPhones = async (req: Request, res: Response) => {
+    const { id } = req.query
+
+    if (id) {
+      const phone = phones.find((p) => p.getPhone().id.includes(id.toString()))
+      return res.status(200).send(phone.getPhone())
+    }
     const data = phones.map((p) => p.getPhone())
     return res.status(200).send(data)
   }

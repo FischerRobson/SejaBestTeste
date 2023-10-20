@@ -42,6 +42,14 @@ class PersonController {
   }
 
   listPersons = async (req: Request, res: Response) => {
+    const { id } = req.query
+
+    if (id) {
+      const person = persons.find((p) =>
+        p.getPerson().id.includes(id.toString()),
+      )
+      return res.status(200).send(person.getPerson())
+    }
     const data = persons.map((p) => p.getPerson())
     return res.status(200).send(data)
   }

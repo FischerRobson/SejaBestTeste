@@ -46,7 +46,11 @@ describe(`${PhoneController.name}`, () => {
   })
 
   it(`Should test ${phoneController.listPhones.name}`, async () => {
-    const req: Partial<Request> = {}
+    const req: Partial<Request> = {
+      query: {
+        id: null,
+      },
+    }
 
     const res: Partial<Response> = {
       status: jest.fn().mockReturnThis(),
@@ -56,6 +60,29 @@ describe(`${PhoneController.name}`, () => {
     await phoneController.listPhones(req as Request, res as Response)
 
     expect(res.send).toHaveBeenCalledWith(expect.any(Array))
+    expect(res.status).toHaveBeenCalledWith(200)
+  })
+
+  it(`Should test ${phoneController.listPhones.name} with an id`, async () => {
+    const mockedPhone = new Phone()
+    mockedPhone.setPhone('19', '992988998', true)
+
+    phones.push(mockedPhone)
+
+    const req: Partial<Request> = {
+      query: {
+        id: mockedPhone.getPhone().id,
+      },
+    }
+
+    const res: Partial<Response> = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+    }
+
+    await phoneController.listPhones(req as Request, res as Response)
+
+    expect(res.send).toHaveBeenCalledWith(expect.any(Object))
     expect(res.status).toHaveBeenCalledWith(200)
   })
 
