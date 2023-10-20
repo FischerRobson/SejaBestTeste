@@ -45,7 +45,7 @@ export class PhoneController {
     const { code, cel, number } = bodyScheme.parse(req.body)
 
     const indexOf = phones.findIndex((e) => e.getPhone().id.includes(id))
-    console.log('index' + indexOf)
+
     if (indexOf > -1) {
       phones[indexOf].setPhone(code, number, cel)
       return res.status(200).send(phones[indexOf].getPhone())

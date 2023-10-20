@@ -4,6 +4,8 @@ API construída em Node, Express e Typescript.
 
 ## Endpoints
 
+## Phones
+
 ### GET `/phones`
 
 payload: 

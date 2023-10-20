@@ -67,6 +67,45 @@ class PersonController {
     return res.status(404).send('Person not found')
   }
 
+  linkPersonToPhone = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    try {
+      const bodyScheme = z.object({
+        phoneId: z.string().uuid(),
+      })
+
+      const { phoneId } = bodyScheme.parse(req.body)
+
+      const indexOfPerson = persons.findIndex((e) =>
+        e.getPerson().id.includes(id),
+      )
+
+      if (indexOfPerson > -1) {
+        const indexOfPhone = phones.findIndex((e) =>
+          e.getPhone().id.includes(phoneId),
+        )
+
+        const linkedPhone = phones[indexOfPhone].getPhone()
+
+        if (indexOfPhone > -1) {
+          persons[indexOfPerson].setPerson(
+            undefined,
+            undefined,
+            linkedPhone as unknown as Phone,
+          )
+          return res.status(200).send()
+        } else {
+          return res.status(404).send('Phone not found')
+        }
+      }
+    } catch (e) {
+      const error = e as ZodError
+      const message = `${error.name}: ${error.issues[0].path[0]} ${error.issues[0].message}`
+      return res.status(400).send(message)
+    }
+  }
+
   deletePerson = async (req: Request, res: Response) => {
     const { id } = req.params
 

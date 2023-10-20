@@ -19,6 +19,14 @@ export class Phone {
       code: this.#code,
       number: this.#number,
       cel: this.isCel(),
+      getPhone: function () {
+        return {
+          id: this.id,
+          code: this.code,
+          number: this.number,
+          cel: this.cel,
+        }
+      },
     }
   }
 
